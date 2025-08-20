@@ -221,8 +221,6 @@ class LoginController
 		if ($passwordConfirm !== $password) return app('json')->fail(400762);
 	    
 	    $captchaLocal = CacheService::get('sms.key.cap.' . $key);
-		var_dump($captchaLocal);
-		
 		if (!$captchaLocal)
             return app('json')->fail(410009);
         
