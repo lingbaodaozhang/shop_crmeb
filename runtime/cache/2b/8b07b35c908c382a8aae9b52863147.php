@@ -1,0 +1,4 @@
+<?php
+//000000000000
+ exit();?>
+a:5:{i:0;a:4:{s:2:"id";i:283;s:4:"time";s:1:"1";s:9:"continued";s:1:"9";s:5:"slide";s:65:"http://shop.yuanshi.pro/statics/system_images/recommend_image.png";}i:1;a:4:{s:2:"id";i:280;s:4:"time";s:2:"10";s:9:"continued";s:1:"4";s:5:"slide";s:65:"http://shop.yuanshi.pro/statics/system_images/recommend_image.png";}i:2;a:4:{s:2:"id";i:281;s:4:"time";s:2:"14";s:9:"continued";s:1:"4";s:5:"slide";s:65:"http://shop.yuanshi.pro/statics/system_images/recommend_image.png";}i:3;a:4:{s:2:"id";i:284;s:4:"time";s:2:"18";s:9:"continued";s:1:"4";s:5:"slide";s:65:"http://shop.yuanshi.pro/statics/system_images/recommend_image.png";}i:4;a:4:{s:2:"id";i:282;s:4:"time";s:2:"22";s:9:"continued";s:1:"2";s:5:"slide";s:65:"http://shop.yuanshi.pro/statics/system_images/recommend_image.png";}}

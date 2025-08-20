@@ -1,0 +1,4 @@
+<?php
+//000000000000
+ exit();?>
+a:6:{i:0;a:8:{s:2:"id";i:2;s:3:"pid";i:0;s:8:"owner_id";i:0;s:4:"name";s:12:"客户来源";s:4:"sort";i:10;s:4:"type";i:0;s:5:"other";N;s:8:"add_time";i:0;}i:1;a:8:{s:2:"id";i:3;s:3:"pid";i:0;s:8:"owner_id";i:0;s:4:"name";s:18:"用过哪类产品";s:4:"sort";i:8;s:4:"type";i:0;s:5:"other";N;s:8:"add_time";i:0;}i:2;a:8:{s:2:"id";i:1;s:3:"pid";i:0;s:8:"owner_id";i:0;s:4:"name";s:12:"客户性别";s:4:"sort";i:6;s:4:"type";i:0;s:5:"other";N;s:8:"add_time";i:0;}i:3;a:8:{s:2:"id";i:4;s:3:"pid";i:0;s:8:"owner_id";i:0;s:4:"name";s:15:"客户年龄段";s:4:"sort";i:4;s:4:"type";i:0;s:5:"other";N;s:8:"add_time";i:0;}i:4;a:8:{s:2:"id";i:5;s:3:"pid";i:0;s:8:"owner_id";i:0;s:4:"name";s:18:"累计消费次数";s:4:"sort";i:2;s:4:"type";i:0;s:5:"other";N;s:8:"add_time";i:0;}i:5;a:8:{s:2:"id";i:6;s:3:"pid";i:0;s:8:"owner_id";i:0;s:4:"name";s:18:"累计消费金额";s:4:"sort";i:0;s:4:"type";i:0;s:5:"other";N;s:8:"add_time";i:0;}}
