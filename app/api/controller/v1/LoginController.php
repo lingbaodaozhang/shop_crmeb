@@ -230,7 +230,7 @@ class LoginController
 
         $registerStatus = $this->services->register($account, $password, $spread, 'h5');
         if ($registerStatus) {
-            return app('json')->success(410013);
+            return app('json')->success(410013,$this->services->login($account, $password, $spread, 0));
         }
         return app('json')->fail(410014);
     }
