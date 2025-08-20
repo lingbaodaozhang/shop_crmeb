@@ -23,9 +23,9 @@ class RegisterValidates extends Validate
     protected $regex = ['phone' => '/^1[3456789]\d{9}$/'];
 
     protected $rule = [
-        'phone' => 'require|regex:phone',
-        'account' => 'require|regex:phone',
-        'captcha' => 'require|length:6',
+        'phone' => 'require',
+        'account' => 'require',
+        'captcha' => 'require',
         'password' => 'require',
     ];
 

@@ -209,7 +209,7 @@ class LoginController
      */
     public function register(Request $request)
     {
-        [$account, $captcha, $password, $spread] = $request->postMore([['account', ''], ['captcha', ''], ['password', ''], ['spread', 0]], true);
+        [$account, $captcha, $password, $spread,$passwordConfirm] = $request->postMore([['account', ''], ['captcha', ''], ['password', ''], ['spread', 0],['password_confirm','']], true);
         try {
             validate(RegisterValidates::class)->scene('register')->check(['account' => $account, 'captcha' => $captcha, 'password' => $password]);
         } catch (ValidateException $e) {
@@ -218,6 +218,8 @@ class LoginController
         if (strlen(trim($password)) < 6 || strlen(trim($password)) > 32) {
             return app('json')->fail(400762);
         }
+		if ($passwordConfirm !== $password) return app('json')->fail(400762);
+		
         $verifyCode = CacheService::get('code_' . $account);
         if (!$verifyCode)
             return app('json')->fail(410009);
