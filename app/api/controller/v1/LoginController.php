@@ -209,7 +209,7 @@ class LoginController
      */
     public function register(Request $request)
     {
-        [$account, $captcha, $password, $spread,$passwordConfirm] = $request->postMore([['account', ''], ['captcha', ''], ['password', ''], ['spread', 0],['password_confirm','']], true);
+        [$account, $captcha, $password, $spread,$passwordConfirm,$key] = $request->postMore([['account', ''], ['captcha', ''], ['password', ''], ['spread', 0],['password_confirm',''],['key','']], true);
         try {
             validate(RegisterValidates::class)->scene('register')->check(['account' => $account, 'captcha' => $captcha, 'password' => $password]);
         } catch (ValidateException $e) {
@@ -219,12 +219,14 @@ class LoginController
             return app('json')->fail(400762);
         }
 		if ($passwordConfirm !== $password) return app('json')->fail(400762);
+	    
+	    $captchaLocal = CacheService::get('sms.key.cap.' . $key);
+		var_dump($captchaLocal);
 		
-        $verifyCode = CacheService::get('code_' . $account);
-        if (!$verifyCode)
+		if (!$captchaLocal)
             return app('json')->fail(410009);
-        $verifyCode = substr($verifyCode, 0, 6);
-        if ($verifyCode != $captcha)
+        
+        if (!password_verify($captcha,$captchaLocal))
             return app('json')->fail(410010);
         if (md5($password) == md5('123456')) return app('json')->fail(410012);
 
