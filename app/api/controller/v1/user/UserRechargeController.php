@@ -45,7 +45,7 @@ class UserRechargeController
         [$price, $recharId, $bankAccount,$type, $from] = $request->postMore([
             ['price', 0],
             ['rechar_id', 0],
-            ['bank_account', ''],
+            ['bankAccount', ''],
             ['type', 0],
             ['from', '']
         ], true);
