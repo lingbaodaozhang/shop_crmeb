@@ -117,6 +117,16 @@ class UserRecharge extends BaseModel
     }
 
     /**
+     * 是否成功
+     * @param Model $query
+     * @param $value
+     */
+    public function searchStatusAttr($query, $value)
+    {
+        $query->where('status', $value);
+    }
+
+    /**
      * 模糊搜索
      * @param Model $query
      * @param $value

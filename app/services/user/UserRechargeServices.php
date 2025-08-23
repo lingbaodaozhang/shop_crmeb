@@ -138,7 +138,7 @@ class UserRechargeServices extends BaseServices
         $data = [];
         $data['sumPrice'] = $this->getRechargeSum($where, 'price');
 //        $data['sumRefundPrice'] = $this->getRechargeSum($where, 'refund_price');
-        $where['status'] = '1';
+        $where['status'] = 1;
         $data['successPrice'] = $this->getRechargeSum($where, 'price');
 //        $where['recharge_type'] = 'weixin';
 //        $data['sumWeixinPrice'] = $this->getRechargeSum($where, 'price');
