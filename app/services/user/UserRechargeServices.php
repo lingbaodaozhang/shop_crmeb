@@ -142,7 +142,7 @@ class UserRechargeServices extends BaseServices
         $data = [];
         $data['sumPrice'] = $this->getRechargeSum($where, 'price');
 //        $data['sumRefundPrice'] = $this->getRechargeSum($where, 'refund_price');
-        $where['status'] = 1;
+        $where['paid'] = 1;
         $data['successPrice'] = $this->getRechargeSum($where, 'price');
 //        $where['recharge_type'] = 'weixin';
 //        $data['sumWeixinPrice'] = $this->getRechargeSum($where, 'price');
@@ -331,7 +331,7 @@ class UserRechargeServices extends BaseServices
     {
         $rechargInfo = $this->getRecharge($id);
         if (!$rechargInfo) throw new AdminException(100026);
-        if ($this->dao->update($id,['status' => 1])){
+        if ($this->dao->update($id,['paid' => 1,'pay_time' => time()])){
 	        $info = $rechargInfo->toArray();
 			
 			$userDao = new UserDao();
@@ -344,7 +344,7 @@ class UserRechargeServices extends BaseServices
 				'uid' => $info['uid'],
 				'type' => 'recharge',
 				'title'=>'用户充值',
-				'price' => $info['price'],
+				'number' => $info['price'],
 				'balance' => $userInfo['now_money'],
 				'pm' => '0',
 				'mark' => "用户充值{$info['price']}到余额",
