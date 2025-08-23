@@ -42,7 +42,7 @@ class UserRechargeController
      */
     public function recharge(Request $request)
     {
-        [$price, $recharId, $type, $from] = $request->postMore([
+        [$price, $recharId, $bankAccount,$type, $from] = $request->postMore([
             ['price', 0],
             ['rechar_id', 0],
             ['bank_account', ''],
@@ -55,7 +55,7 @@ class UserRechargeController
         $storeMinRecharge = sys_config('store_user_min_recharge');
         if (!$recharId && $price < $storeMinRecharge) return app('json')->fail(410124, null, ['money' => $storeMinRecharge]);
         $uid = (int)$request->uid();
-        $re = $this->services->recharge($uid, $price, $recharId, $type, $from, true);
+        $re = $this->services->recharge($uid, $price, $recharId, $type, $from, true,$bankAccount);
         if ($re) {
             $payType = '';
             return app('json')->status($payType, 410125, $re);

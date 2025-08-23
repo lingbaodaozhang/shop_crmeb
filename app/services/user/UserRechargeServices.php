@@ -423,7 +423,7 @@ class UserRechargeServices extends BaseServices
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
      */
-    public function recharge(int $uid, $price, $recharId, $type, $from, bool $renten = false)
+    public function recharge(int $uid, $price, $recharId, $type, $from, bool $renten = false,$bankAccount="")
     {
         /** @var UserServices $userServices */
         $userServices = app()->make(UserServices::class);
@@ -450,6 +450,7 @@ class UserRechargeServices extends BaseServices
                 $recharge_data['uid'] = $uid;
                 $recharge_data['price'] = $price;
                 $recharge_data['recharge_type'] = $from;
+                $recharge_data['bank_account'] = $bankAccount;
                 $recharge_data['paid'] = 0;
                 $recharge_data['add_time'] = time();
                 $recharge_data['give_price'] = $paid_price;
