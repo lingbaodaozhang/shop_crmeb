@@ -319,6 +319,21 @@ class UserRechargeServices extends BaseServices
     }
 
     /**
+     * 确认
+     * @param int $id
+     * @return bool
+     */
+    public function confirmRecharge(int $id)
+    {
+        $rechargInfo = $this->getRecharge($id);
+        if (!$rechargInfo) throw new AdminException(100026);
+        if ($this->dao->update($id,['status' => 1]))
+            return true;
+        else
+            throw new AdminException(100008);
+    }
+
+    /**
      * 生成充值订单号
      * @return bool|string
      */

@@ -44,6 +44,17 @@ class UserRecharge extends AuthController
         ]);
         return app('json')->success($this->services->getRechargeList($where));
     }
+	
+	/**
+	 * 确认充值到账
+	 * @return void
+	 */
+	public function confirm() {
+		$params = $this->request->getMore([
+			['id',0]
+		]);
+		return app('json')->success($this->services->confirmRecharge($params['id']));
+	}
 
     /**
      * 删除指定资源
