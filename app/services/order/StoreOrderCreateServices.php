@@ -178,27 +178,15 @@ class StoreOrderCreateServices extends BaseServices
         $priceData = $computedServices->computedOrder($uid, $userInfo, $cartGroup, $addressId, $payType, $useIntegral, $couponId, true, $shippingType, $is_gift);
         /** @var WechatUserServices $wechatServices */
         $wechatServices = app()->make(WechatUserServices::class);
-        /** @var UserAddressServices $addressServices */
-        $addressServices = app()->make(UserAddressServices::class);
+//        /** @var UserAddressServices $addressServices */
+//        $addressServices = app()->make(UserAddressServices::class);
         if ($is_gift == 0) {
-            if ($shippingType == 1 && $virtual_type == 0) {
-                if (!$addressId) {
-                    throw new ApiException(410045);
-                }
-                if (!$addressInfo = $addressServices->getOne(['uid' => $uid, 'id' => $addressId, 'is_del' => 0]))
-                    throw new ApiException(410046);
-                $addressInfo = $addressInfo->toArray();
-            } else {
-                if ((!$real_name || !$phone) && $virtual_type == 0) {
-                    throw new ApiException(410245);
-                }
-                $addressInfo['real_name'] = $real_name;
-                $addressInfo['phone'] = $phone;
-                $addressInfo['province'] = '';
-                $addressInfo['city'] = '';
-                $addressInfo['district'] = '';
-                $addressInfo['detail'] = '';
-            }
+	        $addressInfo['real_name'] = '';
+	        $addressInfo['phone'] = '';
+	        $addressInfo['province'] = '';
+	        $addressInfo['city'] = '';
+	        $addressInfo['district'] = '';
+	        $addressInfo['detail'] = '';
         } else {
             $addressInfo['real_name'] = '';
             $addressInfo['phone'] = '';
