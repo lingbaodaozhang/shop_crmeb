@@ -19,6 +19,7 @@ use app\Request;
 use app\services\order\StoreOrderCreateServices;
 use app\services\pay\PayServices;
 use app\services\user\UserRechargeServices;
+use think\App;
 use think\Db;
 
 /**
@@ -45,7 +46,7 @@ class UserWithdrawalController
 	public function apply(Request $request) {
 		[$amount,$bankAccount,$password] = $request->postMore([
 			['amount',0],['bankAccount',''],['password','']
-		                                                      ]);
+		                                                      ],true);
 		if (!$amount || $amount <= 0) return app('json')->fail('请输入正确的金额');
 		if (!$bankAccount) return app('json')->fail('请输入您的银行账号');
 		if (!$password) return app('json')->fail('密码无效');
@@ -60,8 +61,11 @@ class UserWithdrawalController
 		\think\facade\Db::startTrans();
 		try {
 			//扣除金额
-			$userDao = new UserDao();
-			$userDao->bcDec($uid,'now_money',$balance);
+			$user = (new UserDao())->getOne(['uid' => $uid]);
+			$user['now_money'] = $user['now_money'] - $amount;
+			$user->save();
+			
+			
 			//添加提现记录
 			$data = [
 				'uid' => $uid,
@@ -76,14 +80,13 @@ class UserWithdrawalController
 			$withdrawalDao = new UserWithdrawalDao();
 			$saved = $withdrawalDao->save($data);
 			//添加余额变动记录
-			$userInfo = $userDao->get($uid)->toArray();
 			$log = [
 				'uid' => $uid,
 				'link_id' => $saved->id,
 				'type' => 'withdrawal',
 				'title' => '用户提现',
 				'number' => $amount,
-				'balance' =>  $userInfo['now_money'],
+				'balance' =>  $user['now_money'],
 				'pm' => 0,
 				'mark' => "用户申请提现{$amount}",
 				'status' => 0,
