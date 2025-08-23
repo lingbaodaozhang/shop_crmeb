@@ -53,7 +53,7 @@ class UserRecharge extends AuthController
 		$params = $this->request->getMore([
 			['id',0]
 		]);
-		return app('json')->success($this->services->confirmRecharge($params['id']));
+		return app('json')->success($this->services->confirmRecharge($params['id']) ? 100002 : 100008);
 	}
 
     /**

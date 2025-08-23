@@ -12,7 +12,11 @@ declare (strict_types=1);
 
 namespace app\services\user;
 
+use app\dao\user\UserDao;
+use app\dao\user\UserMoneyDao;
 use app\dao\user\UserRechargeDao;
+use app\model\user\User;
+use app\model\user\UserMoney;
 use app\services\BaseServices;
 use app\services\order\StoreOrderCreateServices;
 use app\services\pay\PayServices;
@@ -327,8 +331,27 @@ class UserRechargeServices extends BaseServices
     {
         $rechargInfo = $this->getRecharge($id);
         if (!$rechargInfo) throw new AdminException(100026);
-        if ($this->dao->update($id,['status' => 1]))
-            return true;
+        if ($this->dao->update($id,['status' => 1])){
+	        $info = $rechargInfo->toArray();
+			
+			$userDao = new UserDao();
+			$userDao->bcInc($info['uid'],'now_money',$info['price']);
+			
+			$insert = [
+				'uid' => $info['uid'],
+				'type' => 'recharge',
+				'title'=>'用户充值',
+				'price' => $info['price'],
+				'balance' => $userDao['now_money'] + $info['price'],
+				'pm' => '0',
+				'mark' => "用户充值{$info['price']}到余额",
+			];
+			UserMoney::create($insert);
+			
+			
+			
+	        return true;
+        }
         else
             throw new AdminException(100008);
     }
