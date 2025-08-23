@@ -346,7 +346,7 @@ class UserRechargeServices extends BaseServices
 				'title'=>'用户充值',
 				'number' => $info['price'],
 				'balance' => $userInfo['now_money'],
-				'pm' => '0',
+				'pm' => 1,
 				'mark' => "用户充值{$info['price']}到余额",
 				'link_id' => $info['id'],
 				'status' => 1,
