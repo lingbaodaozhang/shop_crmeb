@@ -264,6 +264,11 @@ Route::group(function () {
         Route::post('recharge/wechat', 'v1.user.UserRechargeController/wechat')->name('rechargeWechat')->option(['real_name' => '公众号充值']);//公众号充值
         Route::get('recharge/index', 'v1.user.UserRechargeController/index')->name('rechargeQuota')->option(['real_name' => '充值余额选择']);//充值余额选择
     })->option(['mark' => 'recharge', 'mark_name' => '充值']);
+	
+    Route::group(function () {
+        //充值类
+        Route::post('withdraw/apply', 'v1.user.UserWithdrawalController/apply')->name('withdrawalApply')->option(['real_name' => '统一提现']);//统一充值
+    })->option(['mark' => 'withdrawal', 'mark_name' => '提现']);
 
     Route::group(function () {
         //会员等级类

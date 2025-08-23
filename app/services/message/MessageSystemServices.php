@@ -54,7 +54,7 @@ class MessageSystemServices extends BaseServices
         $count = $this->dao->getCount($where);
         if (!$list) return ['list' => [], 'count' => 0];
         foreach ($list as &$item) {
-            $item['add_time'] = time_tran($item['add_time']);
+//            $item['add_time'] = time_tran($item['add_time']);
             if ($item['data'] != '' && $this->getMsgCode($item['mark']) != 000000) {
                 $item['content'] = getLang($this->getMsgCode($item['mark']), json_decode($item['data'], true));
             }
@@ -83,7 +83,7 @@ class MessageSystemServices extends BaseServices
         if ($info['data'] != '' && $this->getMsgCode($info['mark']) != 000000) {
             $info['content'] = getLang($this->getMsgCode($info['mark']), json_decode($info['data'], true));
         }
-        $info['add_time'] = time_tran($info['add_time']);
+//        $info['add_time'] = time_tran($info['add_time']);
         return $info;
     }
 
