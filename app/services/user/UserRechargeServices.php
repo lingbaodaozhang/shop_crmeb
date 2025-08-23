@@ -337,12 +337,15 @@ class UserRechargeServices extends BaseServices
 			$userDao = new UserDao();
 			$userDao->bcInc($info['uid'],'now_money',$info['price']);
 			
+			$userInfo = $userDao->get($info['uid']);
+			
+			
 			$insert = [
 				'uid' => $info['uid'],
 				'type' => 'recharge',
 				'title'=>'用户充值',
 				'price' => $info['price'],
-				'balance' => $userDao['now_money'] + $info['price'],
+				'balance' => $userInfo['now_money'],
 				'pm' => '0',
 				'mark' => "用户充值{$info['price']}到余额",
 			];
