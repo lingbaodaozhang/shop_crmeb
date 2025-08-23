@@ -101,6 +101,20 @@ class UserMoneyServices extends BaseServices
             'status' => 1,
             'pm' => 1
         ],
+        'user_withdrawal' => [
+            'title' => '用户提现',
+            'type' => 'withdrawal',
+            'mark' => '用户申请提现{%num%}',
+            'status' => 1,
+            'pm' => 1
+        ],
+        'user_withdrawal_refund' => [
+            'title' => '用户提现驳回',
+            'type' => 'withdrawal_refund',
+            'mark' => '驳回用户提现{%num%}',
+            'status' => 1,
+            'pm' => 1
+        ],
     ];
 
     /**
