@@ -453,6 +453,7 @@ class UserRechargeServices extends BaseServices
                 $recharge_data['paid'] = 0;
                 $recharge_data['add_time'] = time();
                 $recharge_data['give_price'] = $paid_price;
+                $recharge_data['status'] = 0;
                 $recharge_data['channel_type'] = $user['user_type'];
                 if (!$rechargeOrder = $this->dao->save($recharge_data)) {
                     throw new ApiException(400683);

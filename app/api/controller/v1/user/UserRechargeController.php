@@ -45,12 +45,13 @@ class UserRechargeController
         [$price, $recharId, $type, $from] = $request->postMore([
             ['price', 0],
             ['rechar_id', 0],
+            ['bank_account', ''],
             ['type', 0],
-            ['from', 'weixin']
+            ['from', '']
         ], true);
         if (!$price || $price <= 0) return app('json')->fail(410122);
         if (!in_array($type, [0, 1])) return app('json')->fail(410123);
-        if (!in_array($from, [PayServices::WEIXIN_PAY, 'weixinh5', 'routine', PayServices::ALIAPY_PAY])) return app('json')->fail(410123);
+//        if (!in_array($from, [PayServices::WEIXIN_PAY, 'weixinh5', 'routine', PayServices::ALIAPY_PAY])) return app('json')->fail(410123);
         $storeMinRecharge = sys_config('store_user_min_recharge');
         if (!$recharId && $price < $storeMinRecharge) return app('json')->fail(410124, null, ['money' => $storeMinRecharge]);
         $uid = (int)$request->uid();
