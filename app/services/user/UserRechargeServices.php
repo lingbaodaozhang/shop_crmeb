@@ -77,6 +77,9 @@ class UserRechargeServices extends BaseServices
         if (isset($where['recharge_type']) && $where['recharge_type']) {
             $whereData['recharge_type'] = $where['recharge_type'];
         }
+        if (isset($where['status']) && $where['status']) {
+            $whereData['status'] = $where['status'];
+        }
         return $this->dao->getWhereSumField($whereData, $field);
     }
 
@@ -145,14 +148,14 @@ class UserRechargeServices extends BaseServices
                 'field' => '元',
                 'count' => $data['sumPrice'],
                 'className' => 'iconjiaoyijine',
-                'col' => 6,
+                'col' => 12,
             ],
             [
                 'name' => '成功充值总额',
                 'field' => '元',
                 'count' => $data['successPrice'],
                 'className' => 'iconjiaoyijine',
-                'col' => 6,
+                'col' => 12,
             ],
         ];
     }
