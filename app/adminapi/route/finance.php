@@ -58,6 +58,8 @@ Route::group('finance', function () {
         Route::get('recharge/:id/refund_edit', 'v1.finance.UserRecharge/refund_edit')->option(['real_name' => '充值退款表单']);
         //退款
         Route::put('recharge/:id', 'v1.finance.UserRecharge/refund_update')->option(['real_name' => '充值退款']);
+		//确认充值
+	    Route::post('recharge/confirm', 'v1.finance.UserRecharge/confirm')->option(['real_name' => '确认充值到账']);
     })->option(['parent' => 'finance', 'cate_name' => '充值']);
 
 
