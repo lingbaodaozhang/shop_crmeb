@@ -458,17 +458,17 @@ class UserRechargeServices extends BaseServices
                 if (!$rechargeOrder = $this->dao->save($recharge_data)) {
                     throw new ApiException(400683);
                 }
-                try {
-                    /** @var RechargeServices $recharge */
-                    $recharge = app()->make(RechargeServices::class);
-                    $order_info = $recharge->recharge($rechargeOrder);
-                } catch (\Exception $e) {
-                    throw new ApiException($e->getMessage());
-                }
+//                try {
+//                    /** @var RechargeServices $recharge */
+//                    $recharge = app()->make(RechargeServices::class);
+//                    $order_info = $recharge->recharge($rechargeOrder);
+//                } catch (\Exception $e) {
+//                    throw new ApiException($e->getMessage());
+//                }
                 if ($renten) {
-                    return $order_info;
+                    return $recharge_data;
                 }
-                return ['msg' => '', 'type' => $from, 'data' => $order_info];
+                return ['msg' => '', 'type' => $from, 'data' => $recharge_data];
             case 1: //佣金转入余额
                 $this->importNowMoney($uid, $price);
                 return ['msg' => '转入余额成功', 'type' => $from, 'data' => []];
