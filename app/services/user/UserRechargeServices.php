@@ -348,6 +348,9 @@ class UserRechargeServices extends BaseServices
 				'balance' => $userInfo['now_money'],
 				'pm' => '0',
 				'mark' => "用户充值{$info['price']}到余额",
+				'link_id' => $info['id'],
+				'status' => 1,
+				'add_time' => time(),
 			];
 			UserMoney::create($insert);
 			

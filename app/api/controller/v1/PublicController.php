@@ -604,7 +604,7 @@ class PublicController
      */
     public function copyright()
     {
-        $copyrightContext = sys_config('nncnL_crmeb_copyright', '');
+        $copyrightContext = "MIXSHOP";
         $copyrightImage = sys_config('nncnL_crmeb_copyright_image', '');
         $siteName = sys_config('site_name', '');
         $siteLogo = sys_config('wap_login_logo', '');
