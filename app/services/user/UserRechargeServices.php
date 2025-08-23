@@ -134,38 +134,24 @@ class UserRechargeServices extends BaseServices
     {
         $data = [];
         $data['sumPrice'] = $this->getRechargeSum($where, 'price');
-        $data['sumRefundPrice'] = $this->getRechargeSum($where, 'refund_price');
-        $where['recharge_type'] = 'alipay';
-        $data['sumAlipayPrice'] = $this->getRechargeSum($where, 'price');
-        $where['recharge_type'] = 'weixin';
-        $data['sumWeixinPrice'] = $this->getRechargeSum($where, 'price');
+//        $data['sumRefundPrice'] = $this->getRechargeSum($where, 'refund_price');
+        $where['status'] = '1';
+        $data['successPrice'] = $this->getRechargeSum($where, 'price');
+//        $where['recharge_type'] = 'weixin';
+//        $data['sumWeixinPrice'] = $this->getRechargeSum($where, 'price');
         return [
             [
-                'name' => '充值总金额',
+                'name' => '申请充值总额',
                 'field' => '元',
                 'count' => $data['sumPrice'],
                 'className' => 'iconjiaoyijine',
                 'col' => 6,
             ],
             [
-                'name' => '充值退款金额',
+                'name' => '成功充值总额',
                 'field' => '元',
-                'count' => $data['sumRefundPrice'],
-                'className' => 'iconshangpintuikuanjine',
-                'col' => 6,
-            ],
-            [
-                'name' => '支付宝充值金额',
-                'field' => '元',
-                'count' => $data['sumAlipayPrice'],
-                'className' => 'iconzhifubao',
-                'col' => 6,
-            ],
-            [
-                'name' => '微信充值金额',
-                'field' => '元',
-                'count' => $data['sumWeixinPrice'],
-                'className' => 'iconweixinzhifu',
+                'count' => $data['successPrice'],
+                'className' => 'iconjiaoyijine',
                 'col' => 6,
             ],
         ];
