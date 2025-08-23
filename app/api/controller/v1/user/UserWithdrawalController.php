@@ -57,7 +57,7 @@ class UserWithdrawalController
 		
 		$orderId = app()->make(StoreOrderCreateServices::class)->getNewOrderId('tx');
 		
-		Db::startTrans();
+		\think\facade\Db::startTrans();
 		try {
 			//扣除金额
 			$userDao = new UserDao();
@@ -71,29 +71,30 @@ class UserWithdrawalController
 				'add_time' => time(),
 				'finish_time' => 0,
 				'bank_account' => $bankAccount,
+				'channel_type' => 'h5',
 			];
 			$withdrawalDao = new UserWithdrawalDao();
 			$saved = $withdrawalDao->save($data);
 			//添加余额变动记录
-			$userInfo = $userDao->get($uid);
+			$userInfo = $userDao->get($uid)->toArray();
 			$log = [
 				'uid' => $uid,
-				'link_id' => $saved->getLastInsID(),
+				'link_id' => $saved->id,
 				'type' => 'withdrawal',
 				'title' => '用户提现',
 				'number' => $amount,
-				'balance' =>  $userInfo->now_money,
+				'balance' =>  $userInfo['now_money'],
 				'pm' => 0,
 				'mark' => "用户申请提现{$amount}",
 				'status' => 0,
 				'add_time' => time()
 			];
 			(new UserMoneyDao())->save($log);
-			Db::commit();
+			\think\facade\Db::commit();
 			return app('json')->success();
 		}
 		catch (\Throwable $e) {
-			Db::rollback();
+			\think\facade\Db::rollback();
 			return app('json')->fail(410126);
 		}
 	}
