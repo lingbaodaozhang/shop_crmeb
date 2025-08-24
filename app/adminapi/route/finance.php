@@ -64,7 +64,8 @@ Route::group('finance', function () {
 		//提现列表
 	    Route::get('withdrawal', 'v1.finance.UserWithdrawal/index')->option(['real_name' => '充值记录列表']);
 	    Route::get('withdrawal/user_withdrawal', 'v1.finance.UserWithdrawal/user_withdrawal')->option(['real_name' => '获取用户充值数据']);
-	    Route::post('withdrawal/confirm', 'v1.finance.UserWithdrawal/confirm')->option(['real_name' => '确认充值到账']);
+	    Route::post('withdrawal/confirm', 'v1.finance.UserWithdrawal/confirm')->option(['real_name' => '确认提现']);
+	    Route::post('withdrawal/reject', 'v1.finance.UserWithdrawal/reject')->option(['real_name' => '驳回提现']);
 		
     })->option(['parent' => 'finance', 'cate_name' => '充值']);
 

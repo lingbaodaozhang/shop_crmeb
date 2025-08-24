@@ -366,6 +366,37 @@ class UserWithdrawalServices extends BaseServices
         else
             throw new AdminException(100008);
     }
+	
+    /**
+     * 驳回
+     * @param int $id
+     * @return bool
+     */
+    public function reject(int $id)
+    {
+        $rechargInfo = $this->getRecharge($id);
+        if (!$rechargInfo) throw new AdminException(100026);
+        if ($this->dao->update($id,['status' => 2,'finish_time' => time()])){
+	        
+	        $userMoney = (new UserMoneyDao())->getOne(
+				[
+					'uid' => $rechargInfo['uid'],
+					'type' => 'withdrawal',
+					'link_id' => $id,
+				]
+	        );
+			$userMoney->save(['status' => 1]);
+			
+			//创建新的记录, 驳回需要补回用户余额
+	        $user = (new UserDao())->getOne(['uid' => $rechargInfo['uid']]);
+			$user->now_money;
+			
+			
+	        return true;
+        }
+        else
+            throw new AdminException(100008);
+    }
 
     /**
      * 生成充值订单号

@@ -57,6 +57,17 @@ class UserWithdrawal extends AuthController
 		return app('json')->success($this->services->confirm($params['id']) ? 100002 : 100008);
 	}
 
+	/**
+	 * 确认充值到账
+	 * @return void
+	 */
+	public function reject() {
+		$params = $this->request->getMore([
+			['id',0]
+		]);
+		return app('json')->success($this->services->confirm($params['id']) ? 100002 : 100008);
+	}
+
     /**
      * 删除指定资源
      * @param int $id
