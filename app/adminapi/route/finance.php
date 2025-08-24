@@ -60,6 +60,12 @@ Route::group('finance', function () {
         Route::put('recharge/:id', 'v1.finance.UserRecharge/refund_update')->option(['real_name' => '充值退款']);
 		//确认充值
 	    Route::post('recharge/confirm', 'v1.finance.UserRecharge/confirm')->option(['real_name' => '确认充值到账']);
+		
+		//提现列表
+	    Route::get('withdrawal', 'v1.finance.UserWithdrawal/index')->option(['real_name' => '充值记录列表']);
+	    Route::get('withdrawal/user_withdrawal', 'v1.finance.UserWithdrawal/user_withdrawal')->option(['real_name' => '获取用户充值数据']);
+	    Route::post('withdrawal/confirm', 'v1.finance.UserWithdrawal/confirm')->option(['real_name' => '确认充值到账']);
+		
     })->option(['parent' => 'finance', 'cate_name' => '充值']);
 
 
