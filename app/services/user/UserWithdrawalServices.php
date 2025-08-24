@@ -29,6 +29,7 @@ use crmeb\exceptions\AdminException;
 use crmeb\exceptions\ApiException;
 use crmeb\services\FormBuilder as Form;
 use crmeb\services\pay\Pay;
+use think\facade\Db;
 use think\facade\Route as Url;
 
 /**
@@ -376,26 +377,28 @@ class UserWithdrawalServices extends BaseServices
     {
         $rechargInfo = $this->getRecharge($id);
         if (!$rechargInfo) throw new AdminException(100026);
-        if ($this->dao->update($id,['status' => 2,'finish_time' => time()])){
-	        
-	        $userMoney = (new UserMoneyDao())->getOne(
-				[
-					'uid' => $rechargInfo['uid'],
-					'type' => 'withdrawal',
-					'link_id' => $id,
-				]
-	        );
-			$userMoney->save(['status' => 1]);
-			
-			//创建新的记录, 驳回需要补回用户余额
-	        $user = (new UserDao())->getOne(['uid' => $rechargInfo['uid']]);
-			$user->now_money;
-			
-			
-	        return true;
-        }
-        else
-            throw new AdminException(100008);
+        Db::startTrans();
+	    try {
+		    $this->dao->update($id,['status' => 2,'finish_time' => time()]);
+		    $userMoney = (new UserMoneyDao())->getOne(
+			    [
+				    'uid' => $rechargInfo['uid'],
+				    'type' => 'withdrawal',
+				    'link_id' => $id,
+			    ]
+		    );
+		    $userMoney->save(['status' => 1]);
+		    
+		    //创建新的记录, 驳回需要补回用户余额
+		    $user = (new UserDao())->getOne(['uid' => $rechargInfo['uid']]);
+		    $user->now_money;
+		    Db::commit();
+		    return true;
+	    }
+		catch (\Throwable $e) {
+			Db::rollback();
+			throw new AdminException(100008);
+		}
     }
 
     /**
