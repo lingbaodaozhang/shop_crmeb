@@ -389,9 +389,25 @@ class UserWithdrawalServices extends BaseServices
 		    );
 		    $userMoney->save(['status' => 1]);
 		    
-		    //创建新的记录, 驳回需要补回用户余额
+		    //返还金额
 		    $user = (new UserDao())->getOne(['uid' => $rechargInfo['uid']]);
-		    $user->now_money;
+		    $user->now_money = $user->now_money + $rechargInfo['price'];
+			$user->save();
+		    
+		    //创建新的记录, 驳回需要补回用户余额
+		    $log = [
+				'uid' => $rechargInfo['uid'],
+				'balance' => $user->now_money,
+				'link_id' => $rechargInfo['id'],
+				'type' => 'withdrawal_refund',
+				'title' => '用户提现驳回',
+				'number' => $rechargInfo['price'],
+				'pm' => 1,
+				'mark' => "提现被驳回,返还余额{$rechargInfo['price']}",
+				'status' => 1,
+				'add_time' => time()
+		    ];
+		    UserMoney::create($log);
 		    Db::commit();
 		    return true;
 	    }
