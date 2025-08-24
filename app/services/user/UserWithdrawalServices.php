@@ -15,6 +15,7 @@ namespace app\services\user;
 use app\dao\user\UserDao;
 use app\dao\user\UserMoneyDao;
 use app\dao\user\UserRechargeDao;
+use app\dao\user\UserWithdrawalDao;
 use app\model\user\User;
 use app\model\user\UserMoney;
 use app\services\BaseServices;
@@ -40,12 +41,13 @@ use think\facade\Route as Url;
  */
 class UserWithdrawalServices extends BaseServices
 {
-
-    /**
-     * UserRechargeServices constructor.
-     * @param UserRechargeDao $dao
-     */
-    public function __construct(UserRechargeDao $dao)
+	
+	/**
+	 * UserRechargeServices constructor.
+	 *
+	 * @param UserWithdrawalDao $dao
+	 */
+    public function __construct(UserWithdrawalDao $dao)
     {
         $this->dao = $dao;
     }
