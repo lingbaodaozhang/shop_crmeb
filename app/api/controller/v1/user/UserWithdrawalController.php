@@ -19,6 +19,7 @@ use app\Request;
 use app\services\order\StoreOrderCreateServices;
 use app\services\pay\PayServices;
 use app\services\user\UserRechargeServices;
+use app\services\user\UserWithdrawalServices;
 use think\App;
 use think\Db;
 
@@ -30,12 +31,13 @@ use think\Db;
 class UserWithdrawalController
 {
     protected $services = NUll;
-
-    /**
-     * UserRechargeController constructor.
-     * @param UserRechargeServices $services
-     */
-    public function __construct(UserRechargeServices $services)
+	
+	/**
+	 * UserRechargeController constructor.
+	 *
+	 * @param UserWithdrawalServices $services
+	 */
+    public function __construct(UserWithdrawalServices $services)
     {
         $this->services = $services;
     }
