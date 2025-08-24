@@ -65,7 +65,7 @@ class UserWithdrawal extends AuthController
 		$params = $this->request->getMore([
 			['id',0]
 		]);
-		return app('json')->success($this->services->confirm($params['id']) ? 100002 : 100008);
+		return app('json')->success($this->services->reject($params['id']) ? 100002 : 100008);
 	}
 
     /**
